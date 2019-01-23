@@ -82,11 +82,21 @@ def points(boggle):                                         #http://www.spoj.com
     return r
 
 while True:
-    x = input("Input boggle file number:")
+    x = input("Input boggle file number or -1 for custom board:")
+    strlist = ""
+    if x != "-1":
+        f = open('boggle/board-points' + x +'.txt', 'r')
+        f.readline().strip()      #Removes the first line of text, it is useless, it is only there to represent the board size
+        board = f.read()
+    #Custom board
+    #TODO
+    else:
+        size = input("Enter size of board")
+        for i in range(int(size)):
+            row = input("Row " + str(i + 1) + ": ")
+            strlist += row.upper() + '\n'        
+        board = strlist
     start_time = time.time()
-    f = open('boggle/board-points' + str(x) +'.txt', 'r')
-    f.readline().strip()                                                        #Removes the first lie of text, it is useless, it is only there to represent the board size
-    board = f.read()
     WORDS, PREFIXES = readwordlist('boggle/dictionary-yawl.txt')                #Variables for the set of words and prefixes used
     print(board)
     boardready = graphready(board)
